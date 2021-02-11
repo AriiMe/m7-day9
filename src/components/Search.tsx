@@ -26,7 +26,7 @@ interface Props {
           <Form.Group className="d-flex">
             <Form.Control
               type="text"
-              placeholder="Search..."
+              placeholder="( ͡° ͜ʖ ͡°)╭∩╮"
               value={this.state.input}
               onChange={(e) => this.setState({ input: e.currentTarget.value })}
             />
