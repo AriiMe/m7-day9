@@ -4,13 +4,16 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Result, SearchResponse } from "../types/interface";
 import Search from "./Search";
+import Detail from './Detail'
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 interface HomeState {
   input: string;
   results: Result[];
 }
 
-export default class Home extends Component<{}, HomeState> {
+
+export default class Home extends Component< RouteComponentProps, HomeState> {
   state: HomeState = {
     input: "",
     results: [],
@@ -57,6 +60,7 @@ export default class Home extends Component<{}, HomeState> {
               return (
                 <Col xs={12} md={5} lg={3} className="mx-4">
                   <Card
+                  onClick={() => this.props.history.push("/song/" + result.id)}
                     style={{
                       width: "18rem",
                       border: "none",
