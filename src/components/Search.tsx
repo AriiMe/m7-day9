@@ -30,9 +30,6 @@ interface Props {
               value={this.state.query}
               onChange={(e) => this.setState({ query: e.currentTarget.value })}
             />
-            <Button variant="dark" type="submit">
-              Submit
-            </Button>
           </Form.Group>
         </Form>
       );
