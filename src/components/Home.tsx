@@ -1,30 +1,30 @@
 /** @format */
 
 import React, { Component } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Result, SearchResponse } from "../types/interface";
 import Search from "./Search";
 
 interface HomeState {
-  query: string;
+  input: string;
   results: Result[];
 }
 
 export default class Home extends Component<{}, HomeState> {
   state: HomeState = {
-    query: "",
+    input: "",
     results: [],
   };
 
-  getInput = (query: string) => {
-    this.setState({ query: query });
-    this.fetchData(query);
+  getInput = (input: string) => {
+    this.setState({ input: input });
+    this.fetchData(input);
   };
 
-  fetchData = async (query: string) => {
+  fetchData = async (input: string) => {
     try {
       let response = await fetch(
-        `https://deezerdevs-deezer.p.rapidapi.com/search?q=${query}`,
+        `https://deezerdevs-deezer.p.rapidapi.com/search?q=${input}`,
         {
           headers: {
             "x-rapidapi-key":
@@ -33,10 +33,10 @@ export default class Home extends Component<{}, HomeState> {
           },
         }
       );
-      let parsedResp = (await response.json()) as SearchResponse;
-      console.log(parsedResp);
+      let Resp = (await response.json()) as SearchResponse;
+      console.log(Resp);
 
-      this.setState({ results: parsedResp.data });
+      this.setState({ results: Resp.data });
     } catch (error) {
       console.log(error);
     }
@@ -52,22 +52,38 @@ export default class Home extends Component<{}, HomeState> {
           </Col>
         </Row>
         <Row className="mb-2 mt-5">
-            {this.state.results.length > 0 &&
-              this.state.results.map((result, i) => {
-                  return (
-                      <Col xs={12} md={5} lg={3} className="mx-4">
-                      <Card  style={{ width: "18rem", border: "none", display: "flex", justifyContent: "center", textAlign:"center", backgroundColor: "transparent", color: "white" }}>
-                    <Card.Img variant="top" style={{borderRadius: "10%"}} src={result.album.cover_medium} />
+          {this.state.results.length > 0 &&
+            this.state.results.map((result, i) => {
+              return (
+                <Col xs={12} md={5} lg={3} className="mx-4">
+                  <Card
+                    style={{
+                      width: "18rem",
+                      border: "none",
+                      display: "flex",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      backgroundColor: "transparent",
+                      color: "white",
+                    }}
+                  >
+                    <Card.Img
+                      id="image"
+                      variant="top"
+                      //   style={{borderRadius: "10%", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 20px 20px 0 rgba(0, 0, 0, 0.19)" }}
+                      src={result.album.cover_medium}
+                    />
                     <Card.Body>
-                      <Card.Title>{result.title}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Rank: {" "} {result.rank}</Card.Subtitle>
+                      <Card.Title id="title">{result.title}</Card.Title>
+                      <Card.Subtitle id="subTitle" className="mb-2 text-muted">
+                        Rank: {result.rank}
+                      </Card.Subtitle>
                     </Card.Body>
                   </Card>
-          </Col>
-                );
-              })}
+                </Col>
+              );
+            })}
         </Row>
-        
       </Container>
     );
   }

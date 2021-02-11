@@ -2,22 +2,22 @@ import React, { Component, FormEvent } from "react";
 import { Form, Button } from "react-bootstrap";
 
 interface Props {
-    search: (query: string) => void;
+    search: (input: string) => void;
   }
   
   interface State {
-    query: string;
+    input: string;
   }
   
   class Search extends Component<Props, State> {
     state = {
-      query: "",
+      input: "",
     };
   
     handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      this.props.search(this.state.query);
-      this.setState({ query: "" });
+      this.props.search(this.state.input);
+      this.setState({ input: "" });
     };
   
     render() {
@@ -27,8 +27,8 @@ interface Props {
             <Form.Control
               type="text"
               placeholder="Search..."
-              value={this.state.query}
-              onChange={(e) => this.setState({ query: e.currentTarget.value })}
+              value={this.state.input}
+              onChange={(e) => this.setState({ input: e.currentTarget.value })}
             />
           </Form.Group>
         </Form>

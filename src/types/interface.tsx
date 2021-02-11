@@ -1,11 +1,6 @@
 export interface IsearchInterface {
     search: Function;
   }
-  
-  export interface IinfoCardProps {
-    info: any;
-  }
-
 
   export interface SearchResponse {
     data:  Result[];
